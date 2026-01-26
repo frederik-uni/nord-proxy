@@ -423,6 +423,8 @@ pub enum Country {
     GL,
     #[serde(rename = "IS")]
     IS,
+    #[serde(rename = "SR")]
+    SR,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
