@@ -785,4 +785,5 @@ pub enum City {
     Manila,
     #[serde(rename = "Strasbourg")]
     Strasbourg,
+    Paramaribo,
 }
