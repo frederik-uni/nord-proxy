@@ -19,7 +19,7 @@
 //! // Example: use with reqwest
 //! let proxy_info = &http_proxies[0];
 //! let client = reqwest::Client::builder()
-//!     .proxy(reqwest::Proxy::all(proxy_info.url())?)
+//!     .proxy(reqwest::Proxy::all(proxy_info.proxy.clone())?)
 //!     .build()?;
 //! ```
 use serde::{Deserialize, Serialize};
@@ -152,7 +152,6 @@ mod tests {
     #[tokio::test]
     async fn proxy() {
         let proxy = Proxy::new().await.proxies("user", "pass");
-
         assert!(proxy.len() > 0)
     }
 
@@ -786,4 +785,5 @@ pub enum City {
     #[serde(rename = "Strasbourg")]
     Strasbourg,
     Paramaribo,
+    Bordeaux,
 }
