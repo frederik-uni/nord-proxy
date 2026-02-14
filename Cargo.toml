@@ -1,6 +1,6 @@
 [package]
 name = "nord-proxy"
-version = "0.2.2"
+version = "0.2.3"
 edition = "2024"
 description = "A Rust crate for retrieving NordVPN HTTP and SOCKS5 proxy endpoints for use with reqwest."
 keywords = ["nordvpn", "proxy", "socks5", "reqwest"]
@@ -8,7 +8,7 @@ categories = ["network-programming"]
 license = "MIT"
 
 [dependencies]
-reqwest = { version = "0.13.1", features = ["json"] }
+reqwest = { version = "0.13", features = ["json"] }
 serde = { version = "1.0.228", features = ["derive"] }
 
 [dev-dependencies]

@@ -786,4 +786,5 @@ pub enum City {
     Strasbourg,
     Paramaribo,
     Bordeaux,
+    Charleston,
 }
