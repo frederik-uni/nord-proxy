@@ -19,8 +19,8 @@
 //! // Example: use with reqwest
 //! let proxy_info = &http_proxies[0];
 //! let client = reqwest::Client::builder()
-//!     .proxy(reqwest::Proxy::all(proxy_info.proxy.clone())?)
-//!     .build()?;
+//!     .proxy(reqwest::Proxy::all(proxy_info.proxy.clone()).unwrap())
+//!     .build().unwrap();
 //! ```
 use serde::{Deserialize, Serialize};
 
@@ -79,8 +79,8 @@ impl ProxyTrait for Proxy {
             .iter()
             .map(|v| ProxyInfo {
                 load: v.0,
-                country: v.1,
-                city: v.2,
+                country: v.1.clone(),
+                city: v.2.clone(),
                 proxy: reqwest::Proxy::https(format!(
                     "https://{}:89",
                     v.3.metadata
@@ -121,8 +121,8 @@ impl ProxyTrait for Socks5 {
                 let c = v.locations.first().unwrap();
                 ProxyInfo {
                     load: v.load,
-                    city: c.country.city.name,
-                    country: c.country.code,
+                    city: c.country.city.name.clone(),
+                    country: c.country.code.clone(),
                     proxy: reqwest::Proxy::all(format!(
                         "socks5h://{username}:{password}@{}:1080",
                         v.hostname
@@ -162,7 +162,8 @@ mod tests {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[serde(untagged)]
 pub enum Country {
     #[serde(rename = "EE")]
     EE,
@@ -424,9 +425,11 @@ pub enum Country {
     IS,
     #[serde(rename = "SR")]
     SR,
+    Other(String),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[serde(untagged)]
 pub enum City {
     #[serde(rename = "Sofia")]
     Sofia,
@@ -787,4 +790,6 @@ pub enum City {
     Paramaribo,
     Bordeaux,
     Charleston,
+    Honolulu,
+    Other(String),
 }
